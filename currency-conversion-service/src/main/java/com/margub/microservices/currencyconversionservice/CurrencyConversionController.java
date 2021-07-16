@@ -16,12 +16,6 @@ public class CurrencyConversionController {
     public CurrencyConversion calculateCurrencyConversion(@PathVariable String from,
                                                           @PathVariable String to,
                                                           @PathVariable BigDecimal quantity) {
-
-//        CurrencyConversion currencyConversion = new CurrencyConversion(1000L, from, to, quantity,
-//                BigDecimal.ONE,
-//                BigDecimal.ONE, "");
-
-        //To call other service,
         HashMap<String, String> uriVariables = new HashMap<>();
         uriVariables.put("from", from);
         uriVariables.put("to", to);
@@ -34,6 +28,5 @@ public class CurrencyConversionController {
                 quantity, currencyConversion.getConversionMultiple(),
                 quantity.multiply(currencyConversion.getConversionMultiple()),
                 currencyConversion.getEnvironment());
-//        return currencyConversion;
     }
 }
