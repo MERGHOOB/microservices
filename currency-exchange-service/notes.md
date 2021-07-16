@@ -16,3 +16,16 @@ use following property for a name and port for service
 initially there is no config server:, so we can avoid the import config server check using.
 
     spring.cloud.config.import-check.enabled=false
+
+
+### URL
+[http://localhost:8000/currency-exchange/from/USD/to/INR](http://localhost:8000/currency-exchange/from/USD/to/INR)
+
+### RESPONSE
+    {
+    "id":10001,
+    "from":"USD",
+    "to":"INR",
+    "conversionMultiple":65.00,
+    "environment":"8000 instance-id"
+    }
