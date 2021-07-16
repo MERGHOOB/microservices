@@ -30,7 +30,40 @@ initially there is no config server:, so we can avoid the import config server c
     "environment":"8000 instance-id"
     }
 
-while adding to jpa
-org.hibernate.tool.schema.spi.CommandAcceptanceException:
-Error executing DDL "create table currency_exchange (id bigint not null, conversion_multiple decimal(19,2), environment varchar(255), from varchar(255), to varchar(255), primary key (id))" via JDBC Statement
-at org.hibe
+
+### Adding JPA and inmemory database
+         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+
+For JPA connection- Annotate CurrencyExchange as Entity and annotate id as @Id
+Other thing is to field-name from and to are sql identifier so annotate both with
+@Column(name="currency_to") and @Column(name="currency_from")
+
+This will be enough to create a table (CURRENCY_EXCHANGE) in h2.
+you can check this in [h2-console](http://localhost:8000/h2-console)
+
+## To initialize data in table
+create a data.sql file in src/main/resource  and put these value in it
+
+    insert into currency_exchange
+    (id, currency_from, currency_to, conversion_multiple,environment)
+    values ( 10001, 'USD', 'INR', '65', '' );
+    
+    insert into currency_exchange
+    (id, currency_from, currency_to, conversion_multiple,environment)
+    values ( 10002, 'EUR', 'INR', '75', '' );
+    
+    insert into currency_exchange
+    (id, currency_from, currency_to, conversion_multiple,environment)
+    values ( 10003, 'AUD', 'INR', '25', '' )
+
+we will see issue add following into application.properties
+
+    #This is required for initialization of datasource defer incase of jpa, otherwise exception comes when to execute data.sql
+    spring.jpa.defer-datasource-initialization=true 
