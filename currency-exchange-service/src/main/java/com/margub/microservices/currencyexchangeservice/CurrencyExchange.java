@@ -1,5 +1,8 @@
 package com.margub.microservices.currencyexchangeservice;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 
 /*
@@ -9,15 +12,20 @@ RESPONSE
     "from":"USD",
     "to":"INR",
     "conversionMultiple":65.00,
-    "environment":"8000 instance-id"
+    "environment":"8000 instance-id" // this will come into picture when multiple instance of this service in the picture
     }
  */
+@Entity
 public class CurrencyExchange {
 
+    @Id
     private Long id;
-    private String from;
+    @Column(name = "currency_from")
+    private String from; // we can't have same name in the database as from is keyword in sQl
+    @Column(name = "currency_to")
     private String to;
     private BigDecimal conversionMultiple;
+    private String environment;
 
     public CurrencyExchange() {
 
@@ -60,5 +68,13 @@ public class CurrencyExchange {
 
     public void setConversionMultiple(BigDecimal conversionMultiple) {
         this.conversionMultiple = conversionMultiple;
+    }
+
+    public String getEnvironment() {
+        return environment;
+    }
+
+    public void setEnvironment(String environment) {
+        this.environment = environment;
     }
 }

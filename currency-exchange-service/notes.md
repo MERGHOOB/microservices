@@ -29,3 +29,8 @@ initially there is no config server:, so we can avoid the import config server c
     "conversionMultiple":65.00,
     "environment":"8000 instance-id"
     }
+
+while adding to jpa
+org.hibernate.tool.schema.spi.CommandAcceptanceException:
+Error executing DDL "create table currency_exchange (id bigint not null, conversion_multiple decimal(19,2), environment varchar(255), from varchar(255), to varchar(255), primary key (id))" via JDBC Statement
+at org.hibe
